@@ -1,0 +1,41 @@
+<form class="needs-validation" novalidate [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" formControlName="name" class="form-control" id="name"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+        <div class="invalid-feedback" *ngIf="submitted && f.name.errors">
+            <div *ngIf="f.name.errors.required">Name is required.</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nic">NIC no.</label>
+        <input type="text" formControlName="nic" class="form-control" id="nic"
+            [ngClass]="{ 'is-invalid': submitted && f.nic.errors }">
+        <div class="invalid-feedback" *ngIf="submitted && f.nic.errors">
+            <div *ngIf="f.nic.errors.required">NIC is required.</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nicCopyFile">NIC Copy</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="nicCopyFile" (change)="onSelectFile($event.target.files, 'nicCopy')"
+                accept=".jpg,.png,.gif,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx" [ngClass]="{ 'is-invalid': submitted && f.nicCopy.errors }">
+            <label class="custom-file-label" #labelImport for="nicCopyFile" id="nicCopy">Choose file</label>
+            <div class="invalid-feedback" *ngIf="submitted && f.nicCopy.errors">
+                <div *ngIf="f.nicCopy.errors.required">NIC Copy is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="profilePicFile">Profile Picture</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="profilePicFile" (change)="onSelectFile($event.target.files, 'profilePic')"
+                accept=".jpg,.png,.gif,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx" [ngClass]="{ 'is-invalid': submitted && f.profilePic.errors }">
+            <label class="custom-file-label" #labelImport for="profilePicFile" id="profilePic">Choose file</label>
+            <div class="invalid-feedback" *ngIf="submitted && f.profilePic.errors">
+                <div *ngIf="f.profilePic.errors.required">Profile Picture is required.</div>
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary" />
+</form>
