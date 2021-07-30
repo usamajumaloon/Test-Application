@@ -32,6 +32,19 @@ namespace TestApplication.WEB.Controllers
             }
         }
 
+        [HttpGet("image-upload"), AllowAnonymous]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            try
+            {
+                return Ok(await imageUploadService.GetImages());
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
         protected IActionResult HandleException(Exception ex)
         {
             var exType = ex.GetType().Name;

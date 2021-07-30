@@ -7,5 +7,6 @@ namespace TestApplication.Services.Services
     public interface IImageUploadService
     {
         Task<List<UploadResult>> UploadImage(ImageUploadModel imageUploadModel);
+        Task<List<UploadResult>> GetImages();
     }
 }

@@ -18,8 +18,10 @@
     <div class="form-group">
         <label for="nicCopyFile">NIC Copy</label>
         <div class="custom-file">
-            <input type="file" class="custom-file-input" id="nicCopyFile" (change)="onSelectFile($event.target.files, 'nicCopy')"
-                accept=".jpg,.png,.gif,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx" [ngClass]="{ 'is-invalid': submitted && f.nicCopy.errors }">
+            <input type="file" class="custom-file-input" id="nicCopyFile"
+                (change)="onSelectFile($event.target.files, 'nicCopy')"
+                accept=".jpg,.png,.gif,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx"
+                [ngClass]="{ 'is-invalid': submitted && f.nicCopy.errors }">
             <label class="custom-file-label" #labelImport for="nicCopyFile" id="nicCopy">Choose file</label>
             <div class="invalid-feedback" *ngIf="submitted && f.nicCopy.errors">
                 <div *ngIf="f.nicCopy.errors.required">NIC Copy is required.</div>
@@ -29,8 +31,10 @@
     <div class="form-group">
         <label for="profilePicFile">Profile Picture</label>
         <div class="custom-file">
-            <input type="file" class="custom-file-input" id="profilePicFile" (change)="onSelectFile($event.target.files, 'profilePic')"
-                accept=".jpg,.png,.gif,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx" [ngClass]="{ 'is-invalid': submitted && f.profilePic.errors }">
+            <input type="file" class="custom-file-input" id="profilePicFile"
+                (change)="onSelectFile($event.target.files, 'profilePic')"
+                accept=".jpg,.png,.gif,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx"
+                [ngClass]="{ 'is-invalid': submitted && f.profilePic.errors }">
             <label class="custom-file-label" #labelImport for="profilePicFile" id="profilePic">Choose file</label>
             <div class="invalid-feedback" *ngIf="submitted && f.profilePic.errors">
                 <div *ngIf="f.profilePic.errors.required">Profile Picture is required.</div>
@@ -39,3 +43,14 @@
     </div>
     <input type="submit" value="Submit" class="btn btn-primary" />
 </form>
+
+<div >
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm" *ngFor="let img of uploadResult">
+            <img [src]="img.url">
+        </div>
+    </div>
+</div>

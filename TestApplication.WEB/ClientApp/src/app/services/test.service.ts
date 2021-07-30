@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { catchError } from 'rxjs/operators';
-import { ImageUploadModel } from '../models/ImageUploadModel';
+import { ImageUploadModel, UploadResultModel } from '../models/ImageUploadModel';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,16 @@ export class TestService extends BaseService {
       .post(
         `${this.baseEndPoint}/image-upload`,
         formData
+      )
+      .pipe(catchError(this.server4xxError));
+
+  }
+
+  getImages() {
+
+    return this.http
+      .get<Array<UploadResultModel>>(
+        `${this.baseEndPoint}/image-upload`
       )
       .pipe(catchError(this.server4xxError));
 

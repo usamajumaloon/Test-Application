@@ -1,6 +1,7 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -16,11 +17,12 @@ namespace TestApplication.Services.Services
     public class ImageUploadService : IImageUploadService
     {
         private const string Tags = "backend_PhotoAlbum";
-
+        private readonly AppDbContext context;
         private readonly Cloudinary cloudinary;
 
-        public ImageUploadService(Cloudinary cloudinary)
+        public ImageUploadService(AppDbContext context, Cloudinary cloudinary)
         {
+            this.context = context;
             this.cloudinary = cloudinary;
         }
 
@@ -46,7 +48,7 @@ namespace TestApplication.Services.Services
                             Tags = Tags
                         }).ConfigureAwait(false);
 
-                        uploadResults.Add(new UploadResult
+                        var tempResult = new UploadResult
                         {
                             Bytes = (int)result.Bytes,
                             CreatedAt = DateTime.Now,
@@ -61,12 +63,29 @@ namespace TestApplication.Services.Services
                             Url = result.Url.AbsoluteUri,
                             Version = int.Parse(result.Version, provider),
                             Width = result.Width
-                        });
+                        };
+
+                        uploadResults.Add(tempResult);
+                        await context.UploadResults.AddAsync(tempResult).ConfigureAwait(false);
                     }
 
                 }
-
+                await context.SaveChangesAsync().ConfigureAwait(false);
                 return uploadResults;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<UploadResult>> GetImages()
+        {
+            try
+            {
+                var results = await context.UploadResults.ToListAsync();
+                return results;
 
             }
             catch (Exception ex)

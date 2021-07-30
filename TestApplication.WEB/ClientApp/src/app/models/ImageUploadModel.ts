@@ -9,3 +9,7 @@ export interface FileParameter {
     nicCopy: FileParameter
     profilePic: FileParameter
   }
+
+  export class UploadResultModel{
+    url: string
+  }

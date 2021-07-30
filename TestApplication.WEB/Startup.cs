@@ -10,6 +10,8 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Linq;
 using TestApplication.Services.Services;
+using Microsoft.EntityFrameworkCore;
+using TestApplication.Services.Models;
 
 namespace TestApplication.WEB
 {
@@ -43,6 +45,10 @@ namespace TestApplication.WEB
             }
 
             services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
+
+            var dbFolder = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\Cloudinary\\samples";
+            System.IO.Directory.CreateDirectory(dbFolder);
+            services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Data Source ={dbFolder}\\PhotosCoreDb.sqlite"));
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ImageUploadModel } from '../models/ImageUploadModel';
+import { ImageUploadModel, UploadResultModel } from '../models/ImageUploadModel';
 import { TestService } from '../services/test.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class ImageUploadComponent implements OnInit {
 
   public profileForm: FormGroup;
   imageModel: ImageUploadModel = new ImageUploadModel();
+  uploadResult: Array<UploadResultModel> = [];
   fileToUpload: File = null;
   url: string = '';
   files: Array<any> = new Array<any>();
@@ -26,6 +27,7 @@ export class ImageUploadComponent implements OnInit {
       nicCopy: [null, Validators.compose([Validators.required])],
       profilePic: [null, Validators.compose([Validators.required])]
     });
+    this.getImages();
   }
 
   get f() { return this.profileForm.controls; }
@@ -66,6 +68,7 @@ export class ImageUploadComponent implements OnInit {
         this.profileForm.reset();
         this.submitted = false;
         this.resetFileInput();
+        this.getImages();
       },
       error => {
         console.log(error);
@@ -79,6 +82,17 @@ export class ImageUploadComponent implements OnInit {
     
     var profile = document.getElementById("profilePic");
     profile.innerHTML = "Choose file";
+  }
+
+  getImages(){
+    this.testService.getImages().subscribe(
+      result => {
+        this.uploadResult = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

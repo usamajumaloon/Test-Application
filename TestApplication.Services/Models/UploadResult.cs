@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace TestApplication.Services.Models
 {
     public class UploadResult
     {
+        [Key]
+        public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public string PublicId { get; set; }
         public int Version { get; set; }
