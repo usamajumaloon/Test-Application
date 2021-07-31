@@ -11,5 +11,6 @@ export interface FileParameter {
   }
 
   export class UploadResultModel{
-    url: string
+    url: string;
+    name: string;
   }

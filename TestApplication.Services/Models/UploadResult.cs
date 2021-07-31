@@ -7,6 +7,7 @@ namespace TestApplication.Services.Models
     {
         [Key]
         public Guid Id { get; set; }
+        public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
         public string PublicId { get; set; }
         public int Version { get; set; }

@@ -2,12 +2,9 @@
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Threading.Tasks;
 using TestApplication.Services.Models;
 using UploadResult = TestApplication.Services.Models.UploadResult;
@@ -35,7 +32,6 @@ namespace TestApplication.Services.Services
                 var imagesList = new List<IFormFile>();
                 imagesList.Add(imageUploadModel.NicCopy);
                 imagesList.Add(imageUploadModel.ProfilePic);
-
                 if (imagesList != null)
                 {
                     IFormatProvider provider = CultureInfo.CreateSpecificCulture("en-US");
@@ -50,6 +46,7 @@ namespace TestApplication.Services.Services
 
                         var tempResult = new UploadResult
                         {
+                            Name = image.FileName,
                             Bytes = (int)result.Bytes,
                             CreatedAt = DateTime.Now,
                             Format = result.Format,
